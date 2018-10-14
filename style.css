@@ -1,0 +1,52 @@
+*{
+    box-sizing: border-box;
+}
+
+body {
+    width: 100%;
+    margin: auto;
+    background: radial-gradient(#002244, #A5ACAF, #69BE28) fixed;
+}
+
+header {
+    content: " ";
+    display: block;
+    border-bottom: 1px ridge fuchsia;
+    width: 100%;
+}
+
+h1 {
+    font-size: 50px;
+    margin: 0px;
+    color: fuchsia;
+}
+
+h2 {
+    font-size: 20px;
+    margin: 0px;
+    color: fuchsia;
+}
+
+main{
+    max-width: 70%;
+    margin: 0 auto;
+}
+
+div {
+    margin-top: 0;
+    /* float: left; */
+    /* width: 50%; */
+    display: inline-block;
+}
+
+img {
+    max-height: 300px;
+    max-width: 100%;
+    margin: 0 auto;
+    /* display: inline-block; */
+}
+
+.likesChart{
+    width: 225px;
+    height: 225px;
+}
