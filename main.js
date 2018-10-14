@@ -3,13 +3,16 @@
 var ImageLeft = document.getElementById('left');
 var ImageCenter = document.getElementById('center');
 var ImageRight = document.getElementById('right');
+var ImgLeftText = document.getElementById('img-left-text');
+var ImgCenterText = document.getElementById('img-center-text');
+var ImgRightText = document.getElementById('img-right-text');
 var imageSelection = document.getElementById('click-here');
 var ctx = document.getElementById('likesChart').getContext('2d');
 
 var allImages = [];
 var borderColors = [];
 var backgroundColors = [];
-var currentLeftImageIndex = 0;
+var currentLeftImageIndex = 3;
 var currentCenterImageIndex = 12;
 var currentRightImageIndex = 19;
 var clickCount = 0;
@@ -32,7 +35,7 @@ var dynamicBorderColors = function(){
     var r = Math.floor(Math.random() * 255);
     var g = Math.floor(Math.random() * 255);
     var b = Math.floor(Math.random() * 255);
-    borderColors.push(`rgb(${r},${g},${b})`);
+    borderColors.push(`rgb(${r},${g},${b},5.0)`);
   };
 };
 var dynamicBackgroundColors = function(){
@@ -40,7 +43,7 @@ var dynamicBackgroundColors = function(){
     var r = Math.floor(Math.random() * 255);
     var g = Math.floor(Math.random() * 255);
     var b = Math.floor(Math.random() * 255);
-    backgroundColors.push(`rgb(${r},${g},${b})`);
+    backgroundColors.push(`rgb(${r},${g},${b},5.0)`);
   };
 };
 
@@ -88,6 +91,9 @@ var chooseNewImage = function (event) {
     ImageLeft.src = allImages[randomNumberLeft].src;
     ImageCenter.src = allImages[randomNumberCenter].src;
     ImageRight.src = allImages[randomNumberRight].src;
+    ImgLeftText.textContent = allImages[randomNumberLeft].name;
+    ImgCenterText.textContent = allImages[randomNumberCenter].name;
+    ImgRightText.textContent = allImages[randomNumberRight].name;
 
     clickCount++;
     if (clickCount === 25 || clickCount > 25) {
@@ -140,15 +146,16 @@ var renderChart = function() {
       data: busMallLikes,
       backgroundColor: [backgroundColors],
       borderColor: [borderColors],
-      borderWidth: 1,
+      borderWidth: 2,
     }],
   };
   var chartOptions = {
-    startAngle: -Math.random / 4,
+    startAngle: 15,
     legend: {
       position: 'left',
     },
     animation: {
+      animateScale: true,
       animateRotate: true,
     },
   };
@@ -158,5 +165,4 @@ var renderChart = function() {
     options: chartOptions,
   };
   var myChart = new Chart(ctx, polarChart);
-  
 };

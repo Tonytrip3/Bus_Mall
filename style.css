@@ -1,7 +1,3 @@
-*{
-    box-sizing: border-box;
-}
-
 body {
     width: 100%;
     margin: auto;
@@ -41,12 +37,12 @@ div {
 
 img {
     max-height: 300px;
-    max-width: 100%;
+    max-width: 90%;
     margin: 0 auto;
     /* display: inline-block; */
 }
 
 .likesChart{
-    width: 225px;
-    height: 225px;
+    width: 100px;
+    height: 100px;
 }

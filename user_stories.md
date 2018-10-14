@@ -1,11 +1,15 @@
-As a user, I want cookie sales data represented in tables rather than lists
-As a user, I want a webpage that displays individual store data for my Salmon Cookie Shops, so that I can be informed about how to run my business
-As a developer, I want to represent the store data in a list format on the webpage, so my client can view the information
-As a developer, I want to use object-oriented programming to build this site, so that the site will be more effective and the code will be easier to read and understand
-As a developer, I want to use thoughtful and descriptive console.log() statements throughout my code to help test my work and assist with debugging.
-As a developer, I want to convert some of my appropriate biographical elements into unordered lists, such as my education summary and/or my work experience.
-As a developer, I want to add a seventh question to my guessing game that has multiple possible correct answers that are stored in an array (for instance, "Can you guess a state that I have lived in besides Washington?"), so that even more of my programming skills are showcased. For now, I will structure this question so that the user has six tries to get a single correct answer, and upon using up those tries OR getting a correct answer, displays a message to the user indicating all of the possible correct answers.
-As a prospective job seeker, I want to consider adopting additional features that I have seen in the 'About Me' projects made by others, so that my 'About Me' can become more thorough and interesting than my original conception.
-As a prospective job seeker, I want to make myself more personable by adding a Top Ten list to the bottom of my About Me page with an ordered list in HTML, for instance, my Top Ten Favorite Movies or my Top Ten Places I Want to Visit, or something along those lines.
-As a prospective job seeker, I was to use CSS to creatively and tastefully style and layout my page.
-As a prospective job seeker, I want to have five yes/no questions in my "about me" guessing game so that I have enough questions to cover a variety of things about me.
+As a user, I want to a stylish web page.
+As a user, I want to have an interactive experience.
+As a user, I want to have my actions mean something.
+As a user, I want to see the results of my actions.
+As a user, I want to feel like my input mattered.
+As a developer, I want to build a random image rendering function.
+As a developer, I want to build a web page that is fashionable and stylish.
+As a developer, I want to render a chart for the user to see their votes.
+As a developer, I want to make sure that my images are being rendered in a random and split manner.
+As a developer, I want to build colors for my chart that are not hard coded.
+As a prospective job seeker, I want to show I can build functions to work around long lines of code.
+As a prospective job seeker, I want to show that my code can be clean and dry.
+As a prospective job seeker, I want to show that I can render a running chart with user input.
+As a prospective job seeker, I want to show my ability to adapt on the fly to project needs.
+As a prospective job seeker, I want to show I can build a web page that appeals to the target user group.
