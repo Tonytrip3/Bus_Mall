@@ -1,5 +1,12 @@
 'use strict';
 
+var allImages = [];
+var clickCount = 0;
+var borderColors = [];
+var backgroundColors = [];
+var currentLeftImageIndex = 3;
+var currentCenterImageIndex = 12;
+var currentRightImageIndex = 19;
 var ImageLeft = document.getElementById('left');
 var ImageCenter = document.getElementById('center');
 var ImageRight = document.getElementById('right');
@@ -8,14 +15,6 @@ var ImgCenterText = document.getElementById('img-center-text');
 var ImgRightText = document.getElementById('img-right-text');
 var imageSelection = document.getElementById('click-here');
 var ctx = document.getElementById('likesChart').getContext('2d');
-
-var allImages = [];
-var borderColors = [];
-var backgroundColors = [];
-var currentLeftImageIndex = 3;
-var currentCenterImageIndex = 12;
-var currentRightImageIndex = 19;
-var clickCount = 0;
 
 var ImageIndex = function(src, name){
   this.src = src;
@@ -28,7 +27,6 @@ var ImageIndex = function(src, name){
 ImageIndex.prototype.renderImage = function(){
   ImageIndex.src = this.src;
 };
-
 
 var dynamicBorderColors = function(){
   for (var i = 0; i < 20; i++) {
@@ -131,7 +129,6 @@ new ImageIndex('./img/wine-glass.jpg', 'Gravity Defying Glass');
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 //Charts
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-
 var renderChart = function() {
   var busMallNames = [];
   var busMallLikes = [];
@@ -144,8 +141,8 @@ var renderChart = function() {
     datasets: [{
       label: '# of Votes',
       data: busMallLikes,
-      backgroundColor: [backgroundColors],
-      borderColor: [borderColors],
+      backgroundColor: backgroundColors,
+      borderColor: borderColors,
       borderWidth: 2,
     }],
   };
