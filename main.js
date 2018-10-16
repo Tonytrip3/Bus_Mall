@@ -1,9 +1,9 @@
 'use strict';
 
 var allImages = [];
-var clickCount = 0;
 var borderColors = [];
 var backgroundColors = [];
+var clickCount = 0;
 var currentLeftImageIndex = 3;
 var currentCenterImageIndex = 12;
 var currentRightImageIndex = 19;
@@ -16,7 +16,7 @@ var ImgRightText = document.getElementById('img-right-text');
 var imageSelection = document.getElementById('click-here');
 var ctx = document.getElementById('likesChart').getContext('2d');
 
-var ImageIndex = function(src, name){
+var imageIndex = function(src, name){
   this.src = src;
   this.likes = 0;
   this.appeared = 0;
@@ -24,24 +24,18 @@ var ImageIndex = function(src, name){
   allImages.push(this);
 };
 
-ImageIndex.prototype.renderImage = function(){
-  ImageIndex.src = this.src;
-};
-
-var dynamicBorderColors = function(){
-  for (var i = 0; i < 20; i++) {
-    var r = Math.floor(Math.random() * 255);
-    var g = Math.floor(Math.random() * 255);
-    var b = Math.floor(Math.random() * 255);
-    borderColors.push(`rgb(${r},${g},${b},5.0)`);
-  };
-};
-var dynamicBackgroundColors = function(){
+var dynamicColors = function(){
   for (var i = 0; i < 20; i++) {
     var r = Math.floor(Math.random() * 255);
     var g = Math.floor(Math.random() * 255);
     var b = Math.floor(Math.random() * 255);
     backgroundColors.push(`rgb(${r},${g},${b},5.0)`);
+  };
+  for (var i = 0; i < 20; i++) {
+    var r = Math.floor(Math.random() * 255);
+    var g = Math.floor(Math.random() * 255);
+    var b = Math.floor(Math.random() * 255);
+    borderColors.push(`rgb(${r},${g},${b},5.0)`);
   };
 };
 
@@ -103,29 +97,28 @@ var chooseNewImage = function (event) {
 
 imageSelection.addEventListener('click', chooseNewImage);
 
-dynamicBackgroundColors();
-dynamicBorderColors();
+dynamicColors();
 
-new ImageIndex('./img/bag.jpg', 'Star Wars Bag');
-new ImageIndex('./img/banana.jpg', 'Banana Cutter');
-new ImageIndex('./img/bathroom.jpg', 'Toilet Tablet');
-new ImageIndex('./img/boots.jpg', 'Collection Boots');
-new ImageIndex('./img/breakfast.jpg', 'Breakfast Toaster');
-new ImageIndex('./img/bubblegum.jpg', 'Meaty Gum');
-new ImageIndex('./img/chair.jpg', 'Invert Seat');
-new ImageIndex('./img/cthulhu.jpg', 'Horror Action Figure');
-new ImageIndex('./img/dog-duck.jpg', 'Bill Muzzle');
-new ImageIndex('./img/dragon.jpg', 'Monsterous Meatlof');
-new ImageIndex('./img/pen.jpg', 'Office Utensils');
-new ImageIndex('./img/pet-sweep.jpg', 'Swiffer Sniffer');
-new ImageIndex('./img/scissors.jpg', 'Pizza Slicer');
-new ImageIndex('./img/shark.jpg', 'Sleepy Jaws');
-new ImageIndex('./img/sweep.png', 'Under Broom');
-new ImageIndex('./img/tauntaun.jpg', 'Emergency Steed');
-new ImageIndex('./img/unicorn.jpg', 'Magical Meat');
-new ImageIndex('./img/usb.gif', 'Kraken USB Stick');
-new ImageIndex('./img/water-can.jpg', 'Everfilling Watering Can');
-new ImageIndex('./img/wine-glass.jpg', 'Gravity Defying Glass');
+new imageIndex('./img/bag.jpg', 'Star Wars Bag');
+new imageIndex('./img/banana.jpg', 'Banana Cutter');
+new imageIndex('./img/bathroom.jpg', 'Toilet Tablet');
+new imageIndex('./img/boots.jpg', 'Collection Boots');
+new imageIndex('./img/breakfast.jpg', 'Breakfast Toaster');
+new imageIndex('./img/bubblegum.jpg', 'Meaty Gum');
+new imageIndex('./img/chair.jpg', 'Invert Seat');
+new imageIndex('./img/cthulhu.jpg', 'Horror Action Figure');
+new imageIndex('./img/dog-duck.jpg', 'Bill Muzzle');
+new imageIndex('./img/dragon.jpg', 'Monsterous Meatlof');
+new imageIndex('./img/pen.jpg', 'Office Utensils');
+new imageIndex('./img/pet-sweep.jpg', 'Sniffer Swiffer');
+new imageIndex('./img/scissors.jpg', 'Pizza Slicer');
+new imageIndex('./img/shark.jpg', 'Sleepy Jaws');
+new imageIndex('./img/sweep.png', 'Under Broom');
+new imageIndex('./img/tauntaun.jpg', 'Emergency Steed');
+new imageIndex('./img/unicorn.jpg', 'Magical Meat');
+new imageIndex('./img/usb.gif', 'Kraken USB Stick');
+new imageIndex('./img/water-can.jpg', 'Everfilling Watering Can');
+new imageIndex('./img/wine-glass.jpg', 'Gravity Defying Glass');
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 //Charts
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -162,4 +155,5 @@ var renderChart = function() {
     options: chartOptions,
   };
   var myChart = new Chart(ctx, polarChart);
+
 };
