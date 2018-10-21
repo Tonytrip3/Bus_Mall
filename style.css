@@ -35,8 +35,8 @@ div {
 }
 
 img {
-    max-height: 290px;
-    max-width: 290px;
+    height: 220px;
+    width: 290px;
     margin-right: 9px;
 }
 
