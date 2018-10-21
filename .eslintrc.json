@@ -14,7 +14,6 @@
       "no-redeclare":"error",
       "no-unused-vars":"error",
       "no-unused-expressions":"error",
-      "no-trailing-spaces":"warn",
       "no-undefined":"error",
       "no-undef":"error",		
       "no-mixed-spaces-and-tabs":["warn","smart-tabs"],
