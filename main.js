@@ -1,5 +1,6 @@
 'use strict';
-
+var result;
+var image = [];
 var allUsers = [];
 var allImages = [];
 var borderColors = [];
@@ -17,6 +18,28 @@ var ImgRightText = document.getElementById('img-right-text');
 var imageSelection = document.getElementById('click-here');
 var ctx = document.getElementById('currentLikesChart').getContext('2d');
 var ctx2 = document.getElementById('previousLikesChart').getContext('2d');
+var previousUserLikes = {
+  'Star Wars Bag': 0,
+  'Banana Cutter': 0,
+  'Toilet Tablet': 0,
+  'Collection Boots': 0,
+  'Breakfast Toaster': 0,
+  'Meaty Gum': 0,
+  'Invert Seat': 0,
+  'Horror Action Figure': 0,
+  'Bill Muzzle': 0,
+  'Monsterous Meatlof': 0,
+  'Office Utensils': 0,
+  'Sniffer Swiffer': 0,
+  'Pizza Slicer': 0,
+  'Sleepy Jaws': 0,
+  'Under Broom': 0,
+  'Emergency Steed': 0,
+  'Magical Meat': 0,
+  'Kraken USB Stick': 0,
+  'Everfilling Watering Can': 0,
+  'Gravity Defying Glass': 0,
+};
 
 var ImageIndex = function(src, name){
   this.src = src;
@@ -67,36 +90,61 @@ var dynamicColors = function(){
 };
 
 var dataEntry = function(){
-  var getter = localStorage.getItem('userData');
+  if (localStorage.getItem('allUserData')){
+    allUsers = JSON.parse(localStorage.getItem('allUserData'));
+  };
+  var getter = JSON.parse(localStorage.getItem('userData'));
   allUsers.push(getter);
   localStorage.setItem('allUserData', JSON.stringify(allUsers));
 };
 
+function dataLog(){
+  var nameArr = [];
+  for (var i in allUsers) {
+    for (var j in allUsers[i]) {
+      previousUserLikes[allUsers[i][j].name] += allUsers[i][j].likes;
+    }
+  }
+
+
+  var result = Object.keys(previousUserLikes).reduce((acc, curr, i)=>{
+    var image = {};
+    image[name] = curr;
+    image[curr] = previousUserLikes[curr];
+    return [...acc, image];
+  }, []);
+
+  console.log('RESULT', result);
+  return result;
+};
+
+
+
 var chooseNewImage = function (event) {
-
+  
   if(event.target.id === 'left' || event.target.id === 'center' || event.target.id === 'right'){
-
+    
     do {
       var randomNumberLeft = Math.floor(Math.random() * allImages.length);
     } while (randomNumberLeft === currentLeftImageIndex ||
       randomNumberLeft === currentCenterImageIndex ||
       randomNumberLeft === currentRightImageIndex);
-
+      
     do {
       var randomNumberCenter = Math.floor(Math.random() * allImages.length);
     } while (randomNumberCenter === randomNumberLeft ||
-        randomNumberCenter === currentLeftImageIndex ||
-        randomNumberCenter === currentCenterImageIndex ||
+      randomNumberCenter === currentLeftImageIndex ||
+      randomNumberCenter === currentCenterImageIndex ||
         randomNumberCenter === currentRightImageIndex);
-
+        
     do {
       var randomNumberRight = Math.floor(Math.random() * allImages.length);
     } while (randomNumberRight === randomNumberLeft ||
           randomNumberRight === currentLeftImageIndex ||
-      randomNumberRight === randomNumberCenter ||
-      randomNumberRight === currentCenterImageIndex ||
-      randomNumberRight === currentRightImageIndex);
-
+          randomNumberRight === randomNumberCenter ||
+          randomNumberRight === currentCenterImageIndex ||
+          randomNumberRight === currentRightImageIndex);
+          
     if(event.target.id === 'left'){
       allImages[currentLeftImageIndex].likes++;
     } else if (event.target.id === 'center') {
@@ -104,15 +152,15 @@ var chooseNewImage = function (event) {
     } else {
       allImages[currentRightImageIndex].likes++;
     }
-
+      
     allImages[currentLeftImageIndex].appeared++;
     allImages[currentCenterImageIndex].appeared++;
     allImages[currentRightImageIndex].appeared++;
-
+    
     currentLeftImageIndex = randomNumberLeft;
     currentCenterImageIndex = randomNumberCenter;
     currentRightImageIndex = randomNumberRight;
-
+    
     ImageLeft.src = allImages[randomNumberLeft].src;
     ImageCenter.src = allImages[randomNumberCenter].src;
     ImageRight.src = allImages[randomNumberRight].src;
@@ -121,16 +169,18 @@ var chooseNewImage = function (event) {
     ImgRightText.textContent = allImages[randomNumberRight].name;
     
     clickCount++;
-
+    localStorage.setItem('userData', JSON.stringify(allImages));
+    
     if (clickCount === 25 && localStorage.getItem('userData')){
       dataEntry();
     };
-    localStorage.setItem('userData', JSON.stringify(allImages.likes));
-
+    
+    
     if (clickCount === 25 || clickCount > 25) {
       imageSelection.removeEventListener('click', chooseNewImage);
       renderChart();
       renderChart2();
+      // dataLog();
     }
   }
 };
@@ -138,20 +188,20 @@ var chooseNewImage = function (event) {
 imageSelection.addEventListener('click', chooseNewImage);
 dynamicColors();
 
+
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 //Charts
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 var renderChart = function() {
-  var busMallNames = [];
+  // var busMallNames = [];
   var busMallLikes = [];
   var polarChart;
   for (var i in allImages) {
-    busMallNames.push(allImages[i].name);
     busMallLikes.push(allImages[i].likes);
   }
   var chartData = {
-    labels: busMallNames,
+    labels: Object.keys(previousUserLikes),
     datasets: [{
       label: '# of Votes',
       data: busMallLikes,
@@ -164,18 +214,18 @@ var renderChart = function() {
     scale: {
       ticks: {
         beginAtZero: true,
-        min: 0,
-        max: 100,
-        stepSize: 20
+        min: -1,
+        max: 7,
+        stepSize: 1,
       },
       pointLabels: {
-        fontSize: 18
-      }
+        fontSize: 18,
+      },
     },
-      legend: {
-        position: 'left'
-      }
-    };
+    legend: {
+      position: 'left',
+    },
+  };
   polarChart = {
     type: 'polarArea',
     data: chartData,
@@ -186,49 +236,55 @@ var renderChart = function() {
 };
 
 var renderChart2 = function() {
-  var busMallNames = [];
   var busMallLikes = [];
   var radarChart;
   for (var i in allImages) {
-    busMallNames.push(allImages[i].name);
     busMallLikes.push(allImages[i].likes);
   }
-  var chartData = {
-    labels: busMallNames,
-    datasets: [{
-      label: 'previous-User',
-      backgroundColor: backgroundColors[0],
-      borderColor: borderColors[0],
-      fill: false,
-      radius: 10,
-      pointRadius: 20,
-      pointBorderWidth: 3,
-      pointBackgroundColor: backgroundColors[1],
-      pointBorderColor: borderColors[1],
-      pointHoverRadius: 10,
-      data: allUsers,
-      
-  }],
-    labels: busMallNames,
-    datasets: [{
-      label: 'current-User',
-      backgroundColor: backgroundColors[2],
-      borderColor: borderColors[2],
-      fill: false,
-      radius: 10,
-      pointRadius: 20,
-      pointBorderWidth: 3,
-      pointBackgroundColor: backgroundColors[3],
-      pointBorderColor: borderColors[3],
-      pointHoverRadius: 10,
-      data: busMallLikes,
-    }]
-  },
-  radarChart = {
-    type: 'radar',
-    data: chartData,
-    // options: chartOptions,
-  },
 
-  dataChart = new Chart(ctx2, radarChart)
+  var labels = dataLog().reduce((acc, curr, i )=>{
+    return [...acc, curr.name];
+  }, []);
+
+  var data =  dataLog().reduce((acc, curr, i )=>{
+    return [...acc, curr.likes];
+  }, []);
+
+  var chartData = {
+      labels: labels,
+      datasets: [{
+        label: 'previous-User',
+        backgroundColor: backgroundColors[0],
+        borderColor: borderColors[0],
+        fill: false,
+        radius: 5,
+        pointRadius: 5,
+        pointBorderWidth: 1,
+        pointBackgroundColor: backgroundColors[1],
+        pointBorderColor: borderColors[1],
+        pointHoverRadius: 5,
+        data: data,   
+      }],
+      labels: labels,
+      datasets: [{
+        label: 'current-User',
+        backgroundColor: backgroundColors[2],
+        borderColor: borderColors[2],
+        fill: false,
+        radius: 5,
+        pointRadius: 5,
+        pointBorderWidth: 1,
+        pointBackgroundColor: backgroundColors[3],
+        pointBorderColor: borderColors[3],
+        pointHoverRadius: 5,
+        data: busMallLikes,
+      }],
+    },
+    radarChart = {
+      type: 'radar',
+      data: chartData,
+    // options: chartOptions,
+    },
+
+    dataChart = new Chart(ctx2, radarChart);
 };
