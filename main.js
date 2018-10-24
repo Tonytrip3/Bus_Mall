@@ -105,8 +105,6 @@ function dataLog(){
       previousUserLikes[allUsers[i][j].name] += allUsers[i][j].likes;
     }
   }
-
-
   var result = Object.keys(previousUserLikes).reduce((acc, curr, i)=>{
     var image = {};
     image[name] = curr;
@@ -114,7 +112,6 @@ function dataLog(){
     return [...acc, image];
   }, []);
 
-  console.log('RESULT', result);
   return result;
 };
 
